@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact us{% endblock title %}
+
+{% block body %}
+
+   <center> <h1>Contact</h1></center>
+    <div class="form my-5 mx-5">
+        <form action="https://sheetdb.io/api/v1/eix79lssfbvu2" method="post" id="sheetdb-form">
+          {% comment %} {% csrf_token %} {% endcomment %}
+            <div class="form-group bg-blue">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="data[name]" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your details with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile</label>
+              <input type="text" class="form-control" name="data[mobile]" id="mobile">
+            </div>
+            <div class="form-group">
+                <label for="pid">PID</label>
+                <input type="text" class="form-control" name="data[pid]" id="pid">
+              </div>
+           
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+          <script>
+            var form = document.getElementById('sheetdb-form');
+            form.addEventListener("submit", e => {
+              e.preventDefault();
+              fetch(form.action, {
+                  method : "POST",
+                  body: new FormData(document.getElementById("sheetdb-form")),
+              }).then(
+                  response => response.json()
+              ).then((html) => {
+                // you can put any JS code here
+                window.open('/success', '_blank');
+              {% comment %} alert("success"); {% endcomment %}
+              });
+            });
+          </script>
+    </div>
+    {% endblock body %}
